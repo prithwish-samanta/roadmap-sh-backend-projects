@@ -7,27 +7,6 @@ Task tracker is a project used to track and manage your tasks. In this task, you
 The application should run from the command line, accept user actions and inputs as arguments, and store the tasks in a JSON file. The user should be able to:
 
 - Add, Update, and Delete tasks
-# Roadmap.sh Backend Projects
-
-Project ideas to take you from beginner to advanced in Backend
-
-## Project list
-
-| Project | Link     | 
-| :-------- | :------- |
-| Task Tracker | https://roadmap.sh/projects/task-tracker |
-| GitHub User Activity | https://roadmap.sh/projects/github-user-activity |
-| Expense Tracker | https://roadmap.sh/projects/expense-tracker |
-| Number Guessing Game | https://roadmap.sh/projects/number-guessing-game |
-| Unit Converter | https://roadmap.sh/projects/unit-converter |
-| Personal Blog | https://roadmap.sh/projects/personal-blog |
-| Weather API | https://roadmap.sh/projects/weather-api-wrapper-service |
-| Blogging Platform API | https://roadmap.sh/projects/blogging-platform-api |
-| Todo List API | https://roadmap.sh/projects/todo-list-api |
-| Expense Tracker API | https://roadmap.sh/projects/expense-tracker-api |
-| TMDB CLI Tool |  https://roadmap.sh/projects/tmdb-cli |
-
-
 - Mark a task as in progress or done
 - List all tasks
 - List all tasks that are done
@@ -79,4 +58,3 @@ Each task should have the following properties:
 - updatedAt: The date and time when the task was last updated
 
 Make sure to add these properties to the JSON file when adding a new task and update them when updating a task.
-
