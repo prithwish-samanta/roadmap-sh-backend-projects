@@ -5,15 +5,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import static dev.prithwish.expense_tracker.service.Utils.*;
+
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
-    List<Expense> expenses = new ArrayList<>();
+    private final ReportGenerationService reportGenerationService;
+
+    public List<Expense> expenses = new ArrayList<>();
+
+    public ExpenseServiceImpl(ReportGenerationService reportGenerationService) {
+        this.reportGenerationService = reportGenerationService;
+    }
 
     @Override
     public Long addExpense(String description, Double amount) {
@@ -56,52 +63,25 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public List<Expense> getAllExpenses(Integer month) throws ParseException {
-        if (month == 0) {
-            return expenses;
-        }
-        List<Expense> list = new ArrayList<>();
-        for (Expense expense : expenses) {
-            Date currentDate = getDateFromString(expense.getDate());
-            if (currentDate.getMonth() == month - 1) {
-                list.add(expense);
-            }
-        }
-        return list;
+    public List<Expense> getAllExpenses(Integer month, Integer year) throws ParseException {
+        return filterExpensesByMonth(expenses, month, year);
     }
 
     @Override
-    public Double getExpensesSummary(Integer month) throws ParseException {
-        if (month == 0) {
-            return expenses.stream().mapToDouble(Expense::getAmount).sum();
-        }
-        double total = 0d;
-        for (Expense expense : expenses) {
-            Date currentDate = getDateFromString(expense.getDate());
-            if (currentDate.getMonth() == month - 1) {
-                total += expense.getAmount();
-            }
-        }
-        return total;
+    public Double getExpensesSummary(Integer month, Integer year) throws ParseException {
+        return getTotalExpenses(expenses, month, year);
     }
 
     @Override
-    public void generateReport() {
-        // TODO: implement a logic for creating a excel report
+    public String generateReport(Integer year) throws Exception {
+        if (expenses.isEmpty()) {
+            throw new RuntimeException("No expenses found");
+        }
+        return reportGenerationService.generateReport(expenses, year);
     }
 
     @Override
     public Expense getExpenseById(Long id) {
         return expenses.stream().filter(expense -> Objects.equals(expense.getId(), id)).findFirst().orElse(null);
-    }
-
-    private String getDateString(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return formatter.format(date);
-    }
-
-    private Date getDateFromString(String dateString) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        return formatter.parse(dateString);
     }
 }

@@ -12,11 +12,11 @@ public interface ExpenseService {
 
     void deleteExpense(Long id);
 
-    List<Expense> getAllExpenses(Integer month) throws ParseException;
+    List<Expense> getAllExpenses(Integer month, Integer year) throws ParseException;
 
-    Double getExpensesSummary(Integer month) throws ParseException;
+    Double getExpensesSummary(Integer month, Integer year) throws ParseException;
 
-    void generateReport();
+    String generateReport(Integer year) throws Exception;
 
     Expense getExpenseById(Long id);
 }

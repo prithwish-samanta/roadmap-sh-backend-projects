@@ -52,9 +52,10 @@ public class Command {
     }
 
     @ShellMethod(key = "list", value = "View all expenses")
-    public Object list(@ShellOption(defaultValue = "0", help = "JAN-DEC can be denoted by 1-12") int month) {
+    public Object list(@ShellOption(defaultValue = "0", help = "JAN-DEC can be denoted by 1-12") Integer month,
+                       @ShellOption(defaultValue = ShellOption.NULL) Integer year) {
         try {
-            List<Expense> expenses = expenseService.getAllExpenses(month);
+            List<Expense> expenses = expenseService.getAllExpenses(month, year);
             if (expenses.isEmpty()) {
                 TableModel emptyModel = new ArrayTableModel(new String[][]{
                         {"No tasks found."}
@@ -83,9 +84,10 @@ public class Command {
     }
 
     @ShellMethod(key = "summary", value = "View a summary of all expenses")
-    public String summary(@ShellOption(defaultValue = "0", help = "JAN-DEC can be denoted by 1-12") int month) {
+    public String summary(@ShellOption(defaultValue = "0", help = "JAN-DEC can be denoted by 1-12") int month,
+                          @ShellOption(defaultValue = ShellOption.NULL) Integer year) {
         try {
-            double totalExpenses = expenseService.getExpensesSummary(month);
+            double totalExpenses = expenseService.getExpensesSummary(month, year);
             return "Total expenses: $" + totalExpenses;
         } catch (Exception e) {
             return e.getMessage();
@@ -93,10 +95,10 @@ public class Command {
     }
 
     @ShellMethod(key = "report", value = "Generate an expense report for an interval")
-    public String report() {
+    public String report(@ShellOption(defaultValue = ShellOption.NULL) Integer year) {
         try {
-            expenseService.generateReport();
-            return "Expense report generated successfully";
+            String filePath = expenseService.generateReport(year);
+            return "Expense report generated successfully. Get you report here: " + filePath;
         } catch (Exception e) {
             return e.getMessage();
         }
