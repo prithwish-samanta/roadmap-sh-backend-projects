@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import static dev.prithwish.expense_tracker.service.Utils.filterExpensesByMonth;
+import static dev.prithwish.expense_tracker.service.Utils.filterExpensesByYearAndMonth;
 
 @Service
 public class ReportGenerationServiceImpl implements ReportGenerationService {
@@ -32,31 +32,31 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     public String generateReport(List<Expense> expenses, Integer year) throws Exception {
         XSSFWorkbook workbook = new XSSFWorkbook();
         writeHeader(workbook, "Expenses");
-        write(workbook, filterExpensesByMonth(expenses, 0, year));
+        write(workbook, expenses);
         writeHeader(workbook, "JAN");
-        write(workbook, filterExpensesByMonth(expenses, 1, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 1, year));
         writeHeader(workbook, "FEB");
-        write(workbook, filterExpensesByMonth(expenses, 2, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 2, year));
         writeHeader(workbook, "MAR");
-        write(workbook, filterExpensesByMonth(expenses, 3, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 3, year));
         writeHeader(workbook, "APRIL");
-        write(workbook, filterExpensesByMonth(expenses, 4, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 4, year));
         writeHeader(workbook, "MAY");
-        write(workbook, filterExpensesByMonth(expenses, 5, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 5, year));
         writeHeader(workbook, "JUN");
-        write(workbook, filterExpensesByMonth(expenses, 6, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 6, year));
         writeHeader(workbook, "JUL");
-        write(workbook, filterExpensesByMonth(expenses, 7, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 7, year));
         writeHeader(workbook, "AUG");
-        write(workbook, filterExpensesByMonth(expenses, 8, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 8, year));
         writeHeader(workbook, "SEPT");
-        write(workbook, filterExpensesByMonth(expenses, 9, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 9, year));
         writeHeader(workbook, "OCT");
-        write(workbook, filterExpensesByMonth(expenses, 10, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 10, year));
         writeHeader(workbook, "NOV");
-        write(workbook, filterExpensesByMonth(expenses, 11, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 11, year));
         writeHeader(workbook, "DEC");
-        write(workbook, filterExpensesByMonth(expenses, 12, year));
+        write(workbook, filterExpensesByYearAndMonth(expenses, 12, year));
 
         String filePath;
         if (year == null) {

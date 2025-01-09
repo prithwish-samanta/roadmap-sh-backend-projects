@@ -20,7 +20,7 @@ public class Utils {
         return formatter.parse(dateString);
     }
 
-    public static List<Expense> filterExpensesByMonth(List<Expense> expenses, Integer month, Integer year) throws ParseException {
+    public static List<Expense> filterExpensesByYearAndMonth(List<Expense> expenses, Integer month, Integer year) throws ParseException {
         if (year == null) {
             year = getYear(new Date());
         }
