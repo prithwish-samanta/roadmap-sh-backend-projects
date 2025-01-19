@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Navigation</title>
+</head>
+<body>
+<header th:fragment="navigation">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Unit Converter</span>
+        </div>
+    </nav>
+    <ul class="nav nav-underline justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${activeNav=='length'?'active':''}" th:href="@{/length}">Length</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${activeNav=='weight'?'active':''}" th:href="@{/weight}">Weight</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${activeNav=='temperature'?'active':''}"
+               th:href="@{/temperature}">Temperature</a>
+        </li>
+    </ul>
+</header>
+</body>
+</html>
