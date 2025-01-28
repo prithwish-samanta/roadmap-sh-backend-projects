@@ -45,13 +45,12 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Override
     public ToDoListResponse getToDoItems(int page, int limit) {
-        ToDoListResponse response = new ToDoListResponse();
         Pageable pageable = PageRequest.of(page - 1, limit);
         Page<ToDo> pageDetails = toDoRepository.findAll(pageable);
-        response.setData(pageDetails.getContent());
-        response.setPage(pageDetails.getNumber() + 1);
-        response.setLimit(pageDetails.getSize());
-        response.setTotal(pageDetails.getTotalElements());
-        return response;
+        return new ToDoListResponse(
+                pageDetails.getContent(),
+                pageDetails.getNumber() + 1,
+                pageDetails.getSize(),
+                pageDetails.getTotalElements());
     }
 }

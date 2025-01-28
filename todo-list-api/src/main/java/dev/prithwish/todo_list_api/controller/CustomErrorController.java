@@ -1,6 +1,7 @@
 package dev.prithwish.todo_list_api.controller;
 
 import dev.prithwish.todo_list_api.dto.ErrorResponse;
+import dev.prithwish.todo_list_api.exception.EmailAlreadyExistsException;
 import dev.prithwish.todo_list_api.exception.ItemNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,13 @@ import java.time.LocalDateTime;
 public class CustomErrorController {
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleItemNotFoundException(ItemNotFoundException e) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setTimestamp(LocalDateTime.now());
-        errorResponse.setError(e.getMessage());
-        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(), e.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyExistsException(EmailAlreadyExistsException e) {
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(), e.getMessage(), HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 }
