@@ -1,0 +1,37 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Maven / Gradle directories
+target/
+build/
+
+# Eclipse IDE files
+*.classpath
+*.project
+*.settings/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+out/
+
+# NetBeans IDE files
+nbproject/private/
+nbbuild/
+dist/
+.nbm/
+
+# VS Code files
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
